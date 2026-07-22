@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Course Lessons</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="max-w-4xl mx-auto mt-10">
+
+    <h1 class="text-3xl font-bold mb-6">
+        Course Lessons
+    </h1>
+
+    <div th:each="lesson : ${lessons}"
+         class="bg-white p-4 rounded shadow mb-4">
+
+        <h2 class="text-xl font-bold"
+            th:text="${lesson.title}">
+        </h2>
+
+        <p class="mt-2"
+           th:text="${lesson.content}">
+        </p>
+
+        <div class="mt-3">
+
+            <a th:href="${lesson.videoUrl}"
+               target="_blank"
+               class="bg-blue-500 text-white px-3 py-2 rounded">
+                Watch Video
+            </a>
+
+            <a th:href="${lesson.pdfUrl}"
+               target="_blank"
+               class="bg-green-500 text-white px-3 py-2 rounded ml-2">
+                Open PDF
+            </a>
+            <form th:action="@{/student/lesson/{id}/complete(id=${lesson.id})}"
+                  method="post"
+                  class="mt-3">
+
+                <input type="hidden"
+                       name="courseId"
+                       th:value="${lesson.course.id}"/>
+
+                <button type="submit"
+                        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    Complete Lesson
+                </button>
+            </form>
+
+            <div class="mt-6">
+
+                <a th:href="@{/student/progress/{courseId}(courseId=${lesson.course.id})}"
+                   class="bg-purple-600 text-white px-4 py-2 rounded">
+                    View Progress
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

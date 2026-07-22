@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- Navbar -->
+<nav class="bg-blue-600 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold">LMS Student Portal</h1>
+
+        <a href="/logout"
+           class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
+            Logout
+        </a>
+    </div>
+</nav>
+
+<div class="container mx-auto p-8">
+
+    <h2 class="text-3xl font-bold mb-8">
+        Welcome Student
+    </h2>
+
+    <!-- Statistics Cards -->
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h3 class="text-gray-500">
+                Available Courses
+            </h3>
+
+            <p class="text-4xl font-bold text-blue-600 mt-2"
+               th:text="${availableCourses.size()}">
+                0
+            </p>
+        </div>
+
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h3 class="text-gray-500">
+                My Enrollments
+            </h3>
+
+            <p class="text-4xl font-bold text-green-600 mt-2"
+               th:text="${enrollments.size()}">
+                0
+            </p>
+        </div>
+
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h3 class="text-gray-500">
+                Completed Lessons
+            </h3>
+
+            <p class="text-4xl font-bold text-purple-600 mt-2"
+               th:text="${completedLessons}">
+                0
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Action Cards -->
+    <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- Browse Courses -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h3 class="text-xl font-semibold mb-3">
+                Browse Courses
+            </h3>
+
+            <p class="text-gray-600 mb-4">
+                View all available courses.
+            </p>
+
+            <a href="/student/courses"
+               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                View Courses
+            </a>
+        </div>
+
+        <!-- My Enrollments -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h3 class="text-xl font-semibold mb-3">
+                My Enrollments
+            </h3>
+
+            <p class="text-gray-600 mb-4">
+                Check enrolled courses.
+            </p>
+
+            <a href="/student/enrollments"
+               class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                View Enrollments
+            </a>
+        </div>
+
+        <!-- Progress Tracking -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h3 class="text-xl font-semibold mb-3">
+                Progress Tracking
+            </h3>
+
+            <p class="text-gray-600 mb-4">
+                Monitor learning progress.
+            </p>
+
+            <a href="/student/progress/1"
+               class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                View Progress
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

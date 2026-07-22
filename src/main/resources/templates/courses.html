@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div th:each="course : ${courses}"
+     class="bg-white p-4 rounded shadow mb-4">
+
+    <h2 class="text-xl font-bold"
+        th:text="${course.title}">
+    </h2>
+
+    <p th:text="${course.description}">
+    </p>
+
+</div>
+</body>
+</html>
