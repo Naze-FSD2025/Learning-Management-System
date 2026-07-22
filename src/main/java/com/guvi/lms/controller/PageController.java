@@ -2,6 +2,8 @@ package com.guvi.lms.controller;
 
 import com.guvi.lms.dto.CourseRequest;
 import com.guvi.lms.dto.LessonRequest;
+import com.guvi.lms.dto.RegisterRequest;
+import com.guvi.lms.service.AuthService;
 import com.guvi.lms.service.CourseService;
 import com.guvi.lms.service.FileStorageService;
 import com.guvi.lms.service.LessonService;
@@ -21,10 +23,12 @@ public class PageController {
     private final CourseService courseService;
     private final LessonService lessonService ;
     private final FileStorageService  fileStorageService;
+    private final AuthService authService;
 
-    public PageController(CourseService courseService, LessonService lessonService, FileStorageService fileStorageService) {
+    public PageController(CourseService courseService, LessonService lessonService, FileStorageService fileStorageService, AuthService authService) {
         this.courseService = courseService;
         this.lessonService = lessonService;
+        this.authService = authService;
         this.fileStorageService = fileStorageService;
     }
 
@@ -128,6 +132,25 @@ public class PageController {
     @GetMapping("/register")
     public String registerPage() {
         return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String role) {
+
+        RegisterRequest request = new RegisterRequest();
+
+        request.setName(name);
+        request.setEmail(email);
+        request.setPassword(password);
+        request.setRole(role);
+
+        authService.register(request);
+
+        return "redirect:/login";
     }
 
     @GetMapping("/student/progress")
