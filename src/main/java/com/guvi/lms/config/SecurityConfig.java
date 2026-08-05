@@ -1,7 +1,9 @@
 package com.guvi.lms.config;
 
+import com.guvi.lms.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.*;
 import org.springframework.security.config.annotation.
         web.builders.HttpSecurity;
@@ -9,6 +11,7 @@ import org.springframework.security.config.annotation.
 import org.springframework.security.config.http.
         SessionCreationPolicy;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.
         SecurityFilterChain;
 
@@ -100,5 +103,22 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    CommandLineRunner resetAdminPassword(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder) {
+
+        return args -> {
+            userRepository.findByEmail("admin@gmail.com")
+                    .ifPresent(admin -> {
+                        admin.setPassword(
+                                passwordEncoder.encode("admin123"));
+                        userRepository.save(admin);
+
+                        System.out.println(
+                                "Admin password reset successfully");
+                    });
+        };
+    }
 
 }
