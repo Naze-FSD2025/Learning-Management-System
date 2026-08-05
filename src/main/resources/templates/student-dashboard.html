@@ -5,118 +5,200 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-slate-100 min-h-screen">
 
 <!-- Navbar -->
-<nav class="bg-blue-600 text-white p-4 shadow">
-    <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold">LMS Student Portal</h1>
+<nav class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+        <div>
+            <h1 class="text-2xl font-bold">
+                 LMS Student Portal
+            </h1>
+            <p class="text-sm text-blue-100">
+                Learn, track progress and complete courses
+            </p>
+        </div>
 
         <a href="/logout"
-           class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
+           class="bg-red-500 hover:bg-red-600 px-5 py-2 rounded-lg transition">
             Logout
         </a>
+
     </div>
 </nav>
 
-<div class="container mx-auto p-8">
+<div class="max-w-7xl mx-auto px-6 py-8">
 
-    <h2 class="text-3xl font-bold mb-8">
-        Welcome Student
-    </h2>
+    <!-- Welcome -->
+    <div class="mb-8">
+        <h2 class="text-4xl font-bold text-gray-800">
+            Welcome Student
+        </h2>
 
-    <!-- Statistics Cards -->
+        <p class="text-gray-500 mt-2">
+            Continue your learning journey.
+        </p>
+    </div>
+
+    <!-- Statistics -->
     <div class="grid md:grid-cols-3 gap-6 mb-8">
 
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-gray-500">
-                Available Courses
-            </h3>
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-600">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500">Available Courses</p>
 
-            <p class="text-4xl font-bold text-blue-600 mt-2"
-               th:text="${availableCourses.size()}">
-                0
-            </p>
+                    <h3 class="text-4xl font-bold text-blue-600 mt-2"
+                        th:text="${availableCourses.size()}">
+                        0
+                    </h3>
+                </div>
+
+                <span class="text-5xl">📚</span>
+            </div>
         </div>
 
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-gray-500">
-                My Enrollments
-            </h3>
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-green-600">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500">My Enrollments</p>
 
-            <p class="text-4xl font-bold text-green-600 mt-2"
-               th:text="${enrollments.size()}">
-                0
-            </p>
+                    <h3 class="text-4xl font-bold text-green-600 mt-2"
+                        th:text="${enrollments.size()}">
+                        0
+                    </h3>
+                </div>
+
+                <span class="text-5xl">🎓</span>
+            </div>
         </div>
 
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-gray-500">
-                Completed Lessons
-            </h3>
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-600">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500">Completed Lessons</p>
 
-            <p class="text-4xl font-bold text-purple-600 mt-2"
-               th:text="${completedLessons}">
-                0
-            </p>
+                    <h3 class="text-4xl font-bold text-purple-600 mt-2"
+                        th:text="${completedLessons}">
+                        0
+                    </h3>
+                </div>
+
+                <span class="text-5xl">✅</span>
+            </div>
         </div>
 
     </div>
 
-    <!-- Action Cards -->
-    <div class="grid md:grid-cols-3 gap-6">
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
 
-        <!-- Browse Courses -->
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-xl font-semibold mb-3">
-                Browse Courses
-            </h3>
+        <h3 class="text-2xl font-bold mb-6 text-gray-800">
+            Quick Actions
+        </h3>
 
-            <p class="text-gray-600 mb-4">
-                View all available courses.
-            </p>
+        <div class="grid md:grid-cols-3 gap-4">
 
             <a href="/student/courses"
-               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                View Courses
+               class="bg-blue-600 hover:bg-blue-700 text-white p-5 rounded-xl text-center shadow">
+
+                <div class="text-4xl mb-2">📚</div>
+
+                <div class="font-semibold">
+                    Browse Courses
+                </div>
+
             </a>
-        </div>
-
-        <!-- My Enrollments -->
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-xl font-semibold mb-3">
-                My Enrollments
-            </h3>
-
-            <p class="text-gray-600 mb-4">
-                Check enrolled courses.
-            </p>
 
             <a href="/student/enrollments"
-               class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                View Enrollments
+               class="bg-green-600 hover:bg-green-700 text-white p-5 rounded-xl text-center shadow">
+
+                <div class="text-4xl mb-2">🎓</div>
+
+                <div class="font-semibold">
+                    My Enrollments
+                </div>
+
             </a>
+
+            <a href="/student/progress"
+               class="bg-purple-600 hover:bg-purple-700 text-white p-5 rounded-xl text-center shadow">
+
+                <div class="text-4xl mb-2">📈</div>
+
+                <div class="font-semibold">
+                    Learning Progress
+                </div>
+
+            </a>
+
         </div>
 
-        <!-- Progress Tracking -->
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-xl font-semibold mb-3">
-                Progress Tracking
+    </div>
+
+    <!-- Recent Enrollments -->
+    <div class="bg-white rounded-2xl shadow-lg p-6">
+
+        <div class="flex justify-between items-center mb-6">
+
+            <h2 class="text-2xl font-bold text-gray-800">
+                My Courses
+            </h2>
+
+            <span class="text-gray-500"
+                  th:text="${enrollments.size() + ' Enrolled'}">
+            </span>
+
+        </div>
+
+        <div th:if="${#lists.isEmpty(enrollments)}"
+             class="text-center py-16">
+
+            <div class="text-6xl mb-4">
+                📚
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-700">
+                No Enrollments Yet
             </h3>
 
-            <p class="text-gray-600 mb-4">
-                Monitor learning progress.
+            <p class="text-gray-500 mt-2">
+                Browse courses and start learning today.
             </p>
 
-            <a href="/student/progress/1"
-               class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
-                View Progress
-            </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div th:each="enrollment : ${enrollments}"
+                 class="bg-slate-50 border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition">
+
+                <h3 class="text-xl font-bold text-gray-800 mb-3"
+                    th:text="${enrollment.course.title}">
+                    Course Title
+                </h3>
+
+                <p class="text-gray-500 mb-4">
+                    Enrolled Course
+                </p>
+
+                <a th:href="@{/student/lessons/{id}(id=${enrollment.course.id})}"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                    Continue Learning
+                </a>
+
+            </div>
+
         </div>
 
     </div>
 
 </div>
+
+<footer class="mt-12 bg-white border-t py-5 text-center text-gray-500">
+    © 2026 Learning Management System
+</footer>
 
 </body>
 </html>

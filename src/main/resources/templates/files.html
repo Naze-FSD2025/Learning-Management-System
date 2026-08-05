@@ -1,61 +1,105 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My Files</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<table class="w-full border-collapse border">
 
-    <thead>
-    <tr class="bg-gray-200">
-        <th class="border p-2">ID</th>
-        <th class="border p-2">File</th>
-        <th class="border p-2">Download</th>
-        <th class="border p-2">Delete</th>
-    </tr>
-    </thead>
+<body class="bg-gray-100 min-h-screen">
 
-    <tbody>
-    <tr th:each="file : ${files}">
+<div class="max-w-6xl mx-auto py-8 px-4">
 
-        <td class="border p-2"
-            th:text="${file.id}">
-        </td>
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-800">
+                📁 File Manager
+            </h1>
+            <p class="text-gray-500">
+                Manage your uploaded course materials
+            </p>
+        </div>
 
-        <td class="border p-2"
-            th:text="${file.fileName}">
-        </td>
+        <a href="/instructor/upload"
+           class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow">
+            + Upload File
+        </a>
+    </div>
 
-        <td class="border p-2">
+    <!-- Card -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
 
-            <a th:href="@{/api/files/download/{id}(id=${file.id})}"
-               class="bg-blue-500 text-white px-3 py-1 rounded">
-                Download
-            </a>
+        <table class="w-full">
 
-        </td>
+            <thead class="bg-indigo-600 text-white">
+            <tr>
+                <th class="p-4 text-left">ID</th>
+                <th class="p-4 text-left">File Name</th>
+                <th class="p-4 text-center">Download</th>
+                <th class="p-4 text-center">Delete</th>
+            </tr>
+            </thead>
 
-        <td class="border p-2">
+            <tbody>
 
-            <form th:action="@{/instructor/files/delete/{id}(id=${file.id})}"
-                  method="post">
+            <tr th:each="file : ${files}"
+                class="border-b hover:bg-gray-50 transition">
 
-                <button
-                        class="bg-red-500 text-white px-3 py-1 rounded">
+                <td class="p-4"
+                    th:text="${file.id}">
+                </td>
 
-                    Delete
+                <td class="p-4">
+                    <div class="flex items-center gap-3">
 
-                </button>
+                        <span class="text-2xl">📄</span>
 
-            </form>
+                        <div>
+                            <p class="font-medium text-gray-800"
+                               th:text="${file.fileName}">
+                            </p>
 
-        </td>
+                            <p class="text-sm text-gray-500">
+                                Course Material
+                            </p>
+                        </div>
 
-    </tr>
-    </tbody>
+                    </div>
+                </td>
 
-</table>
+                <td class="p-4 text-center">
+
+                    <a th:href="@{/media/download/{id}(id=${file.id})}"
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                        Download
+                    </a>
+
+                </td>
+
+                <td class="p-4 text-center">
+
+                    <form th:action="@{/instructor/files/delete/{id}(id=${file.id})}"
+                          method="post">
+
+                        <button
+                                onclick="return confirm('Delete this file?')"
+                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
 </body>
 </html>

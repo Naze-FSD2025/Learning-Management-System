@@ -5,153 +5,200 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-slate-100 min-h-screen">
 
 <!-- Navbar -->
-<nav class="bg-blue-700 text-white shadow-lg">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+<nav class="bg-gradient-to-r from-indigo-600 to-blue-700 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-        <h1 class="text-2xl font-bold">
-            LMS Instructor Portal
-        </h1>
+        <div>
+            <h1 class="text-2xl font-bold">
+                LMS Instructor Portal
+            </h1>
+            <p class="text-sm text-indigo-100">
+                Manage your courses and learning materials
+            </p>
+        </div>
 
         <a href="/logout"
-           class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg">
+           class="bg-red-500 hover:bg-red-600 px-5 py-2 rounded-lg font-medium transition">
             Logout
         </a>
 
     </div>
 </nav>
 
-<!-- Main Content -->
-<div class="container mx-auto px-8 py-8">
+<div class="max-w-7xl mx-auto px-6 py-8">
 
-    <!-- Welcome Section -->
+    <!-- Welcome -->
     <div class="mb-8">
         <h2 class="text-4xl font-bold text-gray-800">
-            Welcome Instructor 👨‍🏫
+            Welcome Instructor
         </h2>
 
         <p class="text-gray-500 mt-2">
-            Manage courses, lessons and learning materials.
+            Create courses, manage lessons and upload learning resources.
         </p>
     </div>
 
     <!-- Statistics -->
     <div class="grid md:grid-cols-3 gap-6 mb-8">
 
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-gray-500">
-                Total Courses
-            </h3>
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-600">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500">Total Courses</p>
 
-            <p class="text-4xl font-bold text-blue-600 mt-2"
-               th:text="${totalCourses}">
+                    <h3 class="text-4xl font-bold text-blue-600 mt-2"
+                        th:text="${totalCourses}">
+                    </h3>
+                </div>
 
-            </p>
+                <span class="text-5xl">📚</span>
+            </div>
         </div>
 
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-gray-500">
-                Total Lessons
-            </h3>
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-green-600">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500">Total Lessons</p>
 
-            <p class="text-4xl font-bold text-green-600 mt-2"
-               th:text="${lessonCount}">
+                    <h3 class="text-4xl font-bold text-green-600 mt-2"
+                        th:text="${lessonCount}">
+                    </h3>
+                </div>
 
-            </p>
+                <span class="text-5xl">🎓</span>
+            </div>
         </div>
 
-        <div class="bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-gray-500">
-                Uploaded Files
-            </h3>
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-600">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500">Uploaded Files</p>
 
-            <p class="text-4xl font-bold text-purple-600 mt-2"
-               th:text="${fileCount}">
-            </p>
+                    <h3 class="text-4xl font-bold text-purple-600 mt-2"
+                        th:text="${fileCount}">
+                    </h3>
+                </div>
+
+                <span class="text-5xl">📁</span>
+            </div>
         </div>
 
     </div>
 
-    <!-- Action Buttons -->
-    <div class="flex flex-wrap gap-4 mb-8">
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
 
-        <a href="/instructor/course/create"
-           class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow">
-            ➕ Create Course
-        </a>
+        <h3 class="text-2xl font-bold mb-6 text-gray-800">
+            Quick Actions
+        </h3>
 
-        <a href="/instructor/upload"
-           class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg shadow">
-            ⬆ Upload PDF
-        </a>
+        <div class="grid md:grid-cols-3 gap-4">
 
-        <a href="/instructor/files"
-           class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow">
-            📁 View Files
-        </a>
+            <a href="/instructor/course/create"
+               class="bg-indigo-600 hover:bg-indigo-700 text-white p-5 rounded-xl text-center transition shadow">
+
+                <div class="text-4xl mb-2">📚</div>
+
+                <div class="font-semibold">
+                    Create Course
+                </div>
+
+            </a>
+
+            <a href="/instructor/upload"
+               class="bg-green-600 hover:bg-green-700 text-white p-5 rounded-xl text-center transition shadow">
+
+                <div class="text-4xl mb-2">⬆️</div>
+
+                <div class="font-semibold">
+                    Upload Material
+                </div>
+
+            </a>
+
+            <a href="/instructor/files"
+               class="bg-purple-600 hover:bg-purple-700 text-white p-5 rounded-xl text-center transition shadow">
+
+                <div class="text-4xl mb-2">📁</div>
+
+                <div class="font-semibold">
+                    View Files
+                </div>
+
+            </a>
+
+        </div>
 
     </div>
 
-    <!-- Courses Section -->
-    <div class="bg-white rounded-xl shadow-lg p-6">
+    <!-- Courses -->
+    <div class="bg-white rounded-2xl shadow-lg p-6">
 
-        <h2 class="text-2xl font-bold mb-6">
-            My Courses
-        </h2>
+        <div class="flex justify-between items-center mb-6">
 
-        <!-- No Courses -->
+            <h2 class="text-2xl font-bold text-gray-800">
+                My Courses
+            </h2>
+
+            <span class="text-gray-500"
+                  th:text="${#lists.size(courses) + ' Courses'}">
+            </span>
+
+        </div>
+
         <div th:if="${#lists.isEmpty(courses)}"
-             class="text-center text-gray-500 py-10">
+             class="text-center py-16">
 
-            No courses available.
+            <div class="text-6xl mb-4">
+                📚
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-700">
+                No Courses Yet
+            </h3>
+
+            <p class="text-gray-500 mt-2">
+                Create your first course to start teaching.
+            </p>
 
         </div>
 
-        <!-- Courses Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div th:each="course : ${courses}"
-                 class="border rounded-xl p-5 hover:shadow-lg transition">
+                 class="bg-slate-50 border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition">
 
-                <h3 class="font-bold text-xl mb-2"
+                <h3 class="text-xl font-bold text-gray-800 mb-3"
                     th:text="${course.title}">
-                    Course Title
                 </h3>
 
-                <p class="text-gray-600 mb-4"
+                <p class="text-gray-600 mb-4 line-clamp-3"
                    th:text="${course.description}">
-                    Course Description
                 </p>
 
-                <!-- Approval Status -->
-                <div class="mb-4">
+                <div class="mb-5">
 
                     <span th:if="${course.approved}"
-                          class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
-                        Approved
+                          class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
+                        ✅ Approved
                     </span>
 
                     <span th:unless="${course.approved}"
-                          class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
-                        Pending Approval
+                          class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
+                        ⏳ Pending Approval
                     </span>
 
                 </div>
 
-                <!-- Actions -->
-                <div class="flex flex-wrap gap-2">
+                <div class="flex gap-2">
 
                     <a th:href="@{/instructor/course/{id}/lesson(id=${course.id})}"
-                       class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm">
+                       class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm">
                         Add Lesson
                     </a>
-
-<!--                    <a th:href="@{/instructor/course/{id}(id=${course.id})}"-->
-<!--                       class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm">-->
-<!--                        View-->
-<!--                    </a>-->
 
                 </div>
 
@@ -163,8 +210,7 @@
 
 </div>
 
-<!-- Footer -->
-<footer class="mt-10 bg-white border-t py-4 text-center text-gray-500">
+<footer class="mt-12 bg-white border-t py-5 text-center text-gray-500">
 
     © 2026 Learning Management System
 
