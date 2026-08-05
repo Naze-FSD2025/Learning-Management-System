@@ -6,6 +6,7 @@ import com.guvi.lms.service.EnrollmentService;
 import com.guvi.lms.service.LessonService;
 import com.guvi.lms.service.ProgressService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,29 +25,23 @@ public class StudentDashboardController {
     private final ProgressService progressService;
 
     @GetMapping("/student/dashboard")
-    public String dashboard(Model model) {
+    public String dashboard(
+            Model model,
+            Authentication authentication) {
 
-
-        String email = "student@gmail.com"; // temporary
-
+        String email = authentication.getName();
 
         model.addAttribute(
                 "availableCourses",
-                courseService.getApprovedCourses()
-        );
-
+                courseService.getApprovedCourses());
 
         model.addAttribute(
                 "enrollments",
-                enrollmentService.getStudentEnrollments(email)
-        );
-
+                enrollmentService.getStudentEnrollments(email));
 
         model.addAttribute(
                 "completedLessons",
-                progressService.getCompletedLessons(email)
-        );
-
+                progressService.getCompletedLessons(email));
 
         return "student-dashboard";
     }
@@ -63,24 +58,25 @@ public class StudentDashboardController {
 
     @PostMapping("/student/enroll/{courseId}")
     public String enrollCourse(
-            @PathVariable Long courseId) {
+            @PathVariable Long courseId,
+            Authentication authentication) {
 
         enrollmentService.enrollCourse(
                 courseId,
-                "student@gmail.com");
+                authentication.getName());
 
         return "redirect:/student/enrollments";
     }
 
     @GetMapping("/student/enrollments")
     public String myEnrollments(
-            Model model) {
+            Model model,
+            Authentication authentication) {
 
         model.addAttribute(
                 "enrollments",
                 enrollmentService
-                        .getStudentEnrollments(
-                                "student@gmail.com"));
+                        .getStudentEnrollments(authentication.getName()));
 
         return "student-enrollments";
     }
@@ -100,11 +96,12 @@ public class StudentDashboardController {
     @PostMapping("/student/lesson/{lessonId}/complete")
     public String completeLesson(
             @PathVariable Long lessonId,
-            @RequestParam Long courseId){
+            @RequestParam Long courseId,
+            Authentication authentication){
 
         progressService.completeLesson(
                 lessonId,
-                "student@gmail.com");
+                authentication.getName());
 
         return "redirect:/student/course/" + courseId;
     }
@@ -112,12 +109,13 @@ public class StudentDashboardController {
     @GetMapping("/student/progress/{courseId}")
     public String courseProgress(
             @PathVariable Long courseId,
-            Model model) {
+            Model model,
+            Authentication authentication) {
 
         double progress =
                 progressService.getCourseProgress(
                         courseId,
-                        "student@gmail.com");
+                        authentication.getName());
         progress = Math.round(progress * 100.0) / 100.0;
         model.addAttribute(
                 "progress",
