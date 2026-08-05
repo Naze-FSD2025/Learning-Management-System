@@ -157,6 +157,7 @@
                     <th class="p-3 text-left">Name</th>
                     <th class="p-3 text-left">Email</th>
                     <th class="p-3 text-left">Role</th>
+                    <th class="p-3 text-left">Action</th>
                 </tr>
 
                 </thead>
@@ -180,6 +181,27 @@
 
                     <td class="p-3"
                         th:text="${user.role}">
+                    </td>
+
+                    <td class="p-3">
+
+                        <form th:if="${user.role.name() != 'ADMIN'}"
+                              th:action="@{/admin/users/delete/{id}(id=${user.id})}"
+                              method="post"
+                              onsubmit="return confirm('Delete this user?');">
+
+                            <button type="submit"
+                                    class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                                Delete
+                            </button>
+
+                        </form>
+
+                        <span th:if="${user.role.name() == 'ADMIN'}"
+                              class="text-gray-500">
+                        Protected
+                         </span>
+
                     </td>
 
                 </tr>
@@ -243,21 +265,31 @@
                     </td>
                     <td class="p-3">
 
-                        <form th:if="${!course.approved}"
-                              th:action="@{/admin/course/{id}/approve(id=${course.id})}"
-                              method="post">
+                        <div class="flex gap-2">
 
-                            <button type="submit"
-                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
-                                Approve
-                            </button>
+                            <form th:if="${!course.approved}"
+                                  th:action="@{/admin/course/{id}/approve(id=${course.id})}"
+                                  method="post">
 
-                        </form>
+                                <button type="submit"
+                                        class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
+                                    Approve
+                                </button>
 
-                        <span th:if="${course.approved}"
-                              class="text-gray-500">
-                              -
-                        </span>
+                            </form>
+
+                            <form th:action="@{/admin/courses/delete/{id}(id=${course.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('Delete this course and all lessons?');">
+
+                                <button type="submit"
+                                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </div>
 
                     </td>
 

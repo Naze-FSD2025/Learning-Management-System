@@ -1,38 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Browse Courses</title>
+    <title>Available Courses</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
 
-<div class="max-w-4xl mx-auto mt-10">
+<body class="bg-gray-100 min-h-screen">
 
-    <h1 class="text-3xl font-bold mb-6">
-        Available Courses
-    </h1>
+<!-- Navbar -->
+<nav class="bg-blue-600 text-white shadow">
+    <div class="container mx-auto px-6 py-4 flex justify-between">
+        <h1 class="text-2xl font-bold">
+            LMS Student Portal
+        </h1>
 
-    <div th:each="course : ${courses}"
-         class="bg-white p-4 rounded shadow mb-4">
+        <a href="/student/dashboard"
+           class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold">
+            Dashboard
+        </a>
+    </div>
+</nav>
 
-        <h2 class="text-xl font-bold"
-            th:text="${course.title}">
+<div class="container mx-auto px-6 py-10">
+
+    <div class="mb-8">
+        <h2 class="text-4xl font-bold text-gray-800">
+            Available Courses
         </h2>
 
-        <p th:text="${course.description}">
+        <p class="text-gray-500 mt-2">
+            Explore and enroll in courses.
         </p>
+    </div>
 
-        <form th:action="@{/student/enroll/{id}(id=${course.id})}"
-              method="post">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <button
-                    class="bg-green-600 text-white px-4 py-2 rounded mt-3">
+        <div th:each="course : ${courses}"
+             class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition">
 
-                Enroll
+            <h3 class="text-xl font-bold text-gray-800 mb-3"
+                th:text="${course.title}">
+            </h3>
 
-            </button>
+            <p class="text-gray-600 mb-5"
+               th:text="${course.description}">
+            </p>
 
-        </form>
+            <div class="flex justify-between items-center">
+
+
+                <form th:action="@{/student/enroll/{id}(id=${course.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                        Enroll Now
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
 
     </div>
 

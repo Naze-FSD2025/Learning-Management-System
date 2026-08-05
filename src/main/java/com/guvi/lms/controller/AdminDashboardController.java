@@ -70,4 +70,31 @@ public class AdminDashboardController {
 
         return "redirect:/admin/dashboard";
     }
+
+    @PostMapping("/admin/users/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Prevent deleting admins
+        if (user.getRole().name().equals("ADMIN")) {
+            return "redirect:/admin/dashboard";
+        }
+
+        // If instructor owns courses, don't delete
+        if (user.getRole().name().equals("INSTRUCTOR")) {
+
+            long courseCount = courseRepository.countByInstructor(user);
+
+            if (courseCount > 0) {
+                return "redirect:/admin/dashboard";
+            }
+        }
+
+        userRepository.delete(user);
+
+        return "redirect:/admin/dashboard";
+    }
+
 }

@@ -4,35 +4,69 @@
     <title>My Enrollments</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
 
-<div class="max-w-4xl mx-auto mt-10">
-    <a href="/student/dashboard"
-       class="bg-gray-600 text-white px-4 py-2 rounded inline-block mb-4">
-        ← Dashboard
-    </a>
+<body class="bg-gray-100 min-h-screen">
 
-    <h1 class="text-3xl font-bold mb-6">
-        My Enrollments
-    </h1>
-    <p class="text-gray-500 mt-2"
-       th:text="'Total Courses Enrolled: ' + ${enrollments.size()}">
-    </p>
-    <div th:each="enrollment : ${enrollments}"
-         class="bg-white shadow rounded-xl p-6 mb-4">
+<nav class="bg-green-600 text-white shadow">
+    <div class="container mx-auto px-6 py-4 flex justify-between">
 
-        <h3 class="text-xl font-bold"
-            th:text="${enrollment.course.title}">
-        </h3>
+        <h1 class="text-2xl font-bold">
+            My Enrollments
+        </h1>
 
-        <p class="text-gray-600 mt-2"
-           th:text="${enrollment.course.description}">
-        </p>
-
-        <a th:href="@{/student/course/{id}(id=${enrollment.course.id})}"
-           class="bg-blue-600 text-white px-4 py-2 rounded mt-3 inline-block">
-            View Lessons
+        <a href="/student/dashboard"
+           class="bg-white text-green-600 px-4 py-2 rounded-lg font-semibold">
+            Dashboard
         </a>
+
+    </div>
+</nav>
+
+<div class="container mx-auto px-6 py-10">
+
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+
+        <table class="w-full">
+
+            <thead class="bg-green-600 text-white">
+
+            <tr>
+                <th class="p-4 text-left">Course</th>
+                <th class="p-4 text-left">Status</th>
+                <th class="p-4 text-left">Action</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="enrollment : ${enrollments}"
+                class="border-b hover:bg-gray-50">
+
+                <td class="p-4"
+                    th:text="${enrollment.course.title}">
+                </td>
+
+                <td class="p-4">
+                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                        Enrolled
+                    </span>
+                </td>
+
+                <td class="p-4">
+
+                    <a th:href="@{/student/course/{id}(id=${enrollment.course.id})}"
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                        View Lessons
+                    </a>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
 
     </div>
 

@@ -22,6 +22,11 @@ A role-based Learning Management System built using Spring Boot.
 - Delete users
 - Manage platform
 
+## Admin Credentials
+Email: admin@gmail.com
+Password: Admin@123
+
+
 ### Instructor
 - Create courses
 - Add lessons
