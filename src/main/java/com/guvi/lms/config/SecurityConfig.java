@@ -103,22 +103,5 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    CommandLineRunner resetAdminPassword(
-            UserRepository userRepository,
-            PasswordEncoder passwordEncoder) {
-
-        return args -> {
-            userRepository.findByEmail("admin@gmail.com")
-                    .ifPresent(admin -> {
-                        admin.setPassword(
-                                passwordEncoder.encode("admin123"));
-                        userRepository.save(admin);
-
-                        System.out.println(
-                                "Admin password reset successfully");
-                    });
-        };
-    }
 
 }

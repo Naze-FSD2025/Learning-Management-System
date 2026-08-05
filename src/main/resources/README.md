@@ -24,7 +24,7 @@ A role-based Learning Management System built using Spring Boot.
 
 ## Admin Credentials
 Email: admin@gmail.com
-Password: Admin@123
+Password: admin123
 
 
 ### Instructor
