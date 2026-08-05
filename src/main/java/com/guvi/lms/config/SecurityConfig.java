@@ -42,39 +42,31 @@ public class SecurityConfig {
                                 "/",
                                 "/login",
                                 "/register",
-                                "/instructor/course/create",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**"
                         ).permitAll()
 
-                        .requestMatchers(
-                                "/admin/**"
-                        ).permitAll()
+                        .requestMatchers("/admin/**")
+                        .hasRole("ADMIN")
 
-                        .requestMatchers(
-                                "/instructor/**"
-                        ).permitAll()
+                        .requestMatchers("/instructor/**")
+                        .hasRole("INSTRUCTOR")
 
-                        .requestMatchers(
-                                "/student/**"
-                        ).hasRole("STUDENT")
+                        .requestMatchers("/student/**")
+                        .hasRole("STUDENT")
 
-                        .requestMatchers(
-                                "/api/admin/**"
-                        ).hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**")
+                        .hasRole("ADMIN")
 
-                        .requestMatchers(
-                                "/api/instructor/**"
-                        ).hasRole("INSTRUCTOR")
+                        .requestMatchers("/api/instructor/**")
+                        .hasRole("INSTRUCTOR")
 
-                        .requestMatchers(
-                                "/api/student/**"
-                        ).hasRole("STUDENT")
+                        .requestMatchers("/api/student/**")
+                        .hasRole("STUDENT")
 
-                        .requestMatchers(
-                                "/api/files/download/**"
-                        ).permitAll()
+                        .requestMatchers("/api/files/download/**")
+                        .permitAll()
 
                         .anyRequest()
                         .authenticated()
