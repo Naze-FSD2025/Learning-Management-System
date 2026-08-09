@@ -3,10 +3,10 @@ package com.guvi.lms.controller;
 import com.guvi.lms.dto.CourseRequest;
 import com.guvi.lms.dto.LessonRequest;
 import com.guvi.lms.dto.RegisterRequest;
-import com.guvi.lms.service.AuthService;
-import com.guvi.lms.service.CourseService;
-import com.guvi.lms.service.FileStorageService;
-import com.guvi.lms.service.LessonService;
+import com.guvi.lms.entity.User;
+import com.guvi.lms.repository.UserRepository;
+import com.guvi.lms.service.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+@RequiredArgsConstructor
 @Controller
 public class PageController {
 
@@ -24,13 +25,10 @@ public class PageController {
     private final LessonService lessonService ;
     private final FileStorageService  fileStorageService;
     private final AuthService authService;
+    private final EmailService emailService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public PageController(CourseService courseService, LessonService lessonService, FileStorageService fileStorageService, AuthService authService) {
-        this.courseService = courseService;
-        this.lessonService = lessonService;
-        this.authService = authService;
-        this.fileStorageService = fileStorageService;
-    }
 
     @GetMapping("/instructor/course/create")
     public String createCoursePage() {
@@ -158,19 +156,56 @@ public class PageController {
         return "student-progress";
     }
 
-//    @GetMapping("/student/dashboard")
-//    public String studentDashboard() {
-//        return "student-dashboard";
-//    }
-//
-//    @GetMapping("/instructor/dashboard")
-//    public String instructorDashboard() {
-//        return "instructor-dashboard";
-//    }
-//
-//    @GetMapping("/admin/dashboard")
-//    public String adminDashboard() {
-//        return "admin-dashboard";
-//    }
 
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "forgot-password";
+    }
+
+    @PostMapping("/forgot-password")
+    public String forgotPassword(
+            @RequestParam String email) {
+
+        String resetLink =
+                "http://localhost:8080/reset-password?email=" + email;
+
+        emailService.sendResetEmail(
+                email,
+                resetLink);
+
+        return "redirect:/forgot-password?sent";
+    }
+
+    @GetMapping("/reset-password")
+    public String resetPasswordPage(
+            @RequestParam String email,
+            Model model) {
+
+        model.addAttribute("email", email);
+
+        return "reset-password";
+    }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String confirmPassword) {
+
+        if (!password.equals(confirmPassword)) {
+            return "redirect:/reset-password?email=" + email + "&error";
+        }
+
+        User user = userRepository
+                .findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+
+        user.setPassword(
+                passwordEncoder.encode(password));
+
+        userRepository.save(user);
+
+        return "redirect:/login?passwordReset";
+    }
 }

@@ -45,9 +45,12 @@ public class SecurityConfig {
                                 "/",
                                 "/login",
                                 "/register",
+                                "/forgot-password",
+                                "/reset-password",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                                "/v3/api-docs/**"
+                                "/v3/api-docs/**",
+                                "/uploads/**"
                         ).permitAll()
 
                         .requestMatchers("/admin/**")
