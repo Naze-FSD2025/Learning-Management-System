@@ -33,5 +33,5 @@ build/
 .vscode/
 
 ### LMS ###
-uploads/
+# uploads/
 uploads-test/
