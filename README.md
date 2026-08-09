@@ -96,4 +96,4 @@ Admin accounts are created manually and cannot be registered through the UI.
 
 Nazeema Begam
 
-Java Full Stack Developerg
+Java Full Stack Developer
